@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            message: 'Hello, VueJS',
+          },
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp"><!-- この要素配下でVueのディレクティブが使用可能 -->
+      {{ message }}
+    </div>
+    <div>
+      {{ message }}
+    </div>
+  </body>
+</html>

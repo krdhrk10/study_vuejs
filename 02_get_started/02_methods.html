@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            dataText: '',
+            dataArr: [
+              "Elem1",
+            ],
+          },
+          methods: {
+            hello: function(){
+              // thisでdataにアクセスできる。
+              // 値を更新するとリアクティブにdomが更新される
+              this.dataText = 'Hello, VueJS';
+            },
+
+            addElem: function(){
+              var num = this.dataArr.length + 1;
+              // 配列への値追加もリアクティブに追従される
+              this.dataArr.push('Elem' + num);
+            },
+            delElem: function(){
+              this.dataArr.pop();
+            },
+          },
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+      <div>
+        <h3>Updating dataText</h3>
+        <button v-on:click="hello" v-if="dataText == ''">Greeting</button>
+        <div>{{ dataText }}</div>
+      </div>
+
+      <div>
+        <h3>Updating dataArr</h3>
+        <!-- v-onは@に置換可能 -->
+        <button @click="addElem">AddElem</button>
+        <button @click="delElem">DelElem</button>
+        <dl v-for="(value, idx) in dataArr">
+          <dt>{{ idx }}</dt><dd>{{ value }}</dd>
+        </dl>
+      </div>
+
+    </div>
+  </body>
+</html>

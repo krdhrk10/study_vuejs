@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Child component ---------------------------------------------->
+    <script type="text/template" id="childElem">
+      <div>
+          {{ name }}: "{{ response }}"
+          <button @click="setTarget('Chris')">Call Chris instead of Mom</button>
+      </div>
+    </script>
+    <script>
+      var Child = {
+        // dom定義の参照先
+        template: "#childElem",
+
+        props: ["name", "parentCall"], // camelCaseになる
+
+        computed: {
+          response: function(){
+            if (this.name === this.parentCall){
+              return "Yes!";
+            }
+            return "...";
+          },
+        },
+
+        methods: {
+          // 親から渡されたpropertyを子が直接書き換えてもイベントは伝搬しない
+          setTarget: function(tgt) { this.parentCall = tgt; },
+        },
+
+      };
+    </script>
+
+
+    <!-- Parent component ---------------------------------------------->
+    <script type="text/template" id="parentElem">
+        <div>
+            <button @click="setTarget('Alice')">Call Alice</button>
+            <button @click="setTarget('Bob')">Call Bob</button>
+
+            <h4>Mom: Hey, {{ target }}! </h4>
+
+            <child name="Alice" :parent-call="target"></child>
+            <child name="Bob" :parent-call="target"></child>
+            <child name="Chris" :parent-call="target"></child>
+        </div>
+    </script>
+    <script>
+      Vue.component('parent', {
+        // dom定義の参照先
+        template: "#parentElem",
+
+        data: function(){
+          return {
+            target: "Alice",
+          };
+        },
+      
+        methods: {
+          setTarget: function(tgt) { this.target = tgt; },
+        },
+      
+        components: {
+          "child": Child,
+        },
+      });
+    </script>
+
+    <!-- root  ---------------------------------------------------------->
+    <script>
+    // entry point
+    window.onload = function(){
+      new Vue({
+        el: '#vueApp',
+      });
+    }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+      <parent></parent>
+    </div>
+  </body>
+</html>

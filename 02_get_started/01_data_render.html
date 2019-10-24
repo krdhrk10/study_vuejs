@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            dataText: 'Hello, VueJS',
+            dataNum: 999,
+            dataBoolean: true,
+            dataObj: {
+              field1: "Field1",
+              field2: 888,
+              field3: false,
+              field4: {
+                field4_1: 'Fuga',
+              },
+            },
+            dataArr: [
+              "Elem1",
+              777,
+              true,
+              {
+                arr_4: 'Hoge',
+              },
+            ],
+          },
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+      <h3>Simple render</h3>
+      <dl>
+        <dt>dataText</dt><dd>{{ dataText }}</dd>
+        <dt>dataNum</dt><dd>{{ dataNum }}</dd>
+        <dt>dataBoolean</dt><dd>{{ dataBoolean }}</dd>
+        <dt>dataObj</dt><dd>{{ dataObj }}</dd>
+        <dt>dataArr</dt><dd>{{ dataArr }}</dd>
+      </dl>
+
+      <h3>List render (Object)</h3>
+      <dl v-for="(value, key) in dataObj">
+        <dt>{{ key }}</dt><dd>{{ value }}</dd>
+      </dl>
+
+      <h3>List render (List)</h3>
+      <dl v-for="(value, idx) in dataArr">
+        <dt>{{ idx }}</dt><dd>{{ value }}</dd>
+      </dl>
+
+      <h3>Conditional render</h3>
+      <dl v-for="(value, idx) in dataArr">
+        <template v-if="idx % 2 == 0"><!-- 偶数の時のみrender -->
+          <dt>{{ idx }}</dt><dd>{{ value }}</dd>
+        </template>
+      </dl>
+
+    </div>
+  </body>
+</html>

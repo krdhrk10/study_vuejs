@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <style>
+      .red {color: red;}
+      .blue {color: blue;}
+      .green {color: green;}
+      .bold {font-weight: bold;}
+      .normal {font-weight: normal;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            colorClass: "red",
+            fontClass: "normal",
+            fontSize: 16,
+          },
+          methods: {
+            setColorClass: function(cl){
+              this.colorClass = cl;
+            },
+            setFontClass: function(cl){
+              this.fontClass = cl;
+            },
+          },
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+      <div>
+        <h3>Bind class</h3>
+        <button @click="setColorClass('red')">Red</button>
+        <button @click="setColorClass('blue')">Blue</button>
+        <button @click="setColorClass('green')">Green</button>
+
+        <div v-bind:class="colorClass">Hello</div>
+
+        <button @click="setFontClass('bold')">Bold</button>
+        <button @click="setFontClass('normal')">Normal</button>
+        <!-- v-bindは:に置換可能 -->
+        <!-- 配列指定もできる -->
+        <div :class="[colorClass, fontClass]">my colorClass is .. "{{ colorClass }}"</div>
+      </div>
+
+      <div>
+        <h3>Bind style</h3>
+        <button @click="fontSize++">increment</button>
+        <button @click="(10 < fontSize) ? fontSize-- : noop">decrement</button>
+
+        <div :style="'font-size:' + fontSize + 'px'">FontSize is .. "{{ fontSize }}px"</div>
+      </div>
+
+    </div>
+  </body>
+</html>

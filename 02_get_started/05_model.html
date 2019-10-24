@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <style>
+      .red {color: red;}
+      .blue {color: blue;}
+      .green {color: green;}
+      .bold {font-weight: bold;}
+      .normal {font-weight: normal;}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            inputText: "Hello",
+            inputTextarea: "<table style='border:1px solid; color: red;'>\n<tr><td>1</td><td>2</td><td>3</td></tr>\n<tr><td>4</td><td>5</td><td>6</td></tr>\n</table>",
+            selectedValue: "red",
+            options: ["red", "blue", "green"],
+          },
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+      <div>
+        <h3>Input text model</h3>
+        <input v-model="inputText">
+        <div>You input .. "{{ inputText }}"</div>
+      </div>
+
+      <div>
+        <h3>Input textarea model</h3>
+        <textarea v-model="inputTextarea" style="width:400px; height: 100px;"></textarea>
+        <!-- v-htmlでhtmlとして展開できる -->
+        <div v-html="inputTextarea"></div>
+      </div>
+
+      <div>
+        <h3>Selector model</h3>
+        <select v-model="selectedValue">
+          <option v-for="opt in options" :value="opt">{{ opt }}</option>
+        </select>
+      </div>
+      <div :class="selectedValue">You selected ... "{{ selectedValue }}"</div>
+    </div>
+  </body>
+</html>

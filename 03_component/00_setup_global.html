@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<!-- greeting componentのdom定義 -->
+	<script type="text/template" id="greetingElem">
+	<div>{{ message }}</div>
+	</script>
+    <script>
+	  // global component
+	  Vue.component("greeting", {
+		  // dom定義の参照先
+		  template: "#greetingElem",
+
+		  // component引数。
+		  // 外部componentなどからreactiveな値を引き回すことでcomponent連携できる。
+		  props: ['keyword'],
+
+		  // 内部変数。Vueインスタンスと異なり、functionで返却する必要あり
+		  data: function(){
+			return {
+			  message: 'Hello, ' + this.keyword + '!',
+			};
+		  },
+	  });
+
+	  // entry point
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+	  <greeting keyword="VueJS"></greeting>
+	  <greeting keyword="World"></greeting>
+    </div>
+  </body>
+</html>

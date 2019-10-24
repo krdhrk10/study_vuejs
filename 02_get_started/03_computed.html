@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            dataNum: 0,
+            dataArr: [
+              "Elem1",
+            ],
+          },
+          methods: {
+            plusNum: function(){
+              this.dataNum += 1;
+            },
+            minusNum: function(){
+              this.dataNum -= 1;
+            },
+            addElem: function(){
+              var num = this.dataArr.length + 1;
+              // 配列への値追加もリアクティブに追従される
+              this.dataArr.push('Elem' + num);
+            },
+            delElem: function(){
+              this.dataArr.pop();
+            },
+          },
+          computed: {
+            calc: function(){
+              return Math.sqrt(this.dataNum);
+            },
+            oddList: function(){
+              var l = [];
+              for(k in this.dataArr){
+                if(k % 2 == 0) {
+                    continue;
+                }
+                l.push(this.dataArr[k]);
+              }
+              return l;
+            },
+          }
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <div id="vueApp">
+      <div>
+        <h3>Computed dataNum</h3>
+        <button v-on:click="plusNum">+</button>
+        <button v-on:click="minusNum">-</button>
+        <div>Sqrt of number "{{ this.dataNum }}" is .. {{ this.calc }}</div>
+      </div>
+      <div>
+        <h3>Computed dataArr</h3>
+        <button v-on:click="addElem">AddElem</button>
+        <button v-on:click="delElem">DelElem</button>
+        <h4>Full</h4>
+        <table>
+          <tr>
+            <td v-for="(value, idx) in dataArr" style="border:1px solid;">
+              {{ idx }}: {{ value }}
+          </tr>
+        </table>
+
+        <h4>Filtered</h4>
+        <table>
+          <tr>
+            <td v-for="(value, idx) in oddList" style="border:1px solid;">
+              {{ idx }}: {{ value }}
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </body>
+</html>
