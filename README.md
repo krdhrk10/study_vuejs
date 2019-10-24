@@ -1,2 +1,1 @@
-# study_vuejs
-Study of VueJS
+# Study VueJS
