@@ -8,7 +8,7 @@
 
     <!-- component ---------------------------------------------->
     <script type="text/template" id="comp">
-        <div>{{ val }}</div>
+      <div>{{ val }}</div>
     </script>
     <script>
       Vue.component('comp', {
@@ -21,69 +21,69 @@
 
     <!-- root  ---------------------------------------------------------->
     <script>
-    // entry point
-    window.onload = function(){
-      new Vue({
-        el: '#vueApp',
-        data: {
-          compValue: 0,
-          compObj: {
-            v: 0,
+      // entry point
+      window.onload = function(){
+        new Vue({
+          el: '#vueApp',
+          data: {
+            compValue: 0,
+            compObj: {
+              v: 0,
+            },
+            compArr: [
+              0
+            ],
+            compObjArr: [
+              { name: 'Alice', age: 5 },
+              { name: 'Bob', age: 10 },
+            ],
           },
-          compArr: [
-            0
-          ],
-          compObjArr: [
-            { name: 'Alice', age: 5 },
-            { name: 'Bob', age: 10 },
-          ],
-		},
-      });
-    }
+        });
+      }
     </script>
   </head>
   <body>
     <div id="vueApp">
-	  <div>
-		<h4>Premitive Reactivity</h4>
-	    <button @click="compValue++">compValue++</button>
-	    <button @click="compValue=0">compValue=0</button>
+      <div>
+        <h4>Premitive Reactivity</h4>
+        <button @click="compValue++">compValue++</button>
+        <button @click="compValue=0">compValue=0</button>
         <comp :val="compValue"></comp>
-	  </div>
-	  <div>
-		<h4>Object Reactivity</h4>
-	    <button @click="compObj.v++">compObj.v++</button>
-	    <button @click="compObj.v=0">compObj.v=0</button>
-		<!-- 一度オブジェクトごと上書きした場合に、vの参照が失われてしまうと、
-			 compObj.v=0ではリアクティブな値にならない -->
-	    <button @click="compObj={}" class="warn">compObj={}</button>
-		<!-- 再度v込みのオブジェクトで上書きするとリアクティブになる -->
-	    <button @click="compObj={v:999}">compObj={v:999}</button>
+      </div>
+      <div>
+        <h4>Object Reactivity</h4>
+        <button @click="compObj.v++">compObj.v++</button>
+        <button @click="compObj.v=0">compObj.v=0</button>
+        <!-- 一度オブジェクトごと上書きした場合に、vの参照が失われてしまうと、
+             compObj.v=0ではリアクティブな値にならない -->
+        <button @click="compObj={}" class="warn">compObj={}</button>
+        <!-- 再度v込みのオブジェクトで上書きするとリアクティブになる -->
+        <button @click="compObj={v:999}">compObj={v:999}</button>
         <comp :val="compObj.v"></comp>
-	  </div>
-	  <div>
-		<h4>Premitive Array Reactivity</h4>
-		<!-- 配列内部のプリミティブ値を直接更新した場合、リアクティブにならない -->
-	    <button @click="compArr[0]++" class="danger">compArr[0]++</button>
-	    <button @click="compArr[0]=999" class="danger">compArr[0]=999</button>
-		<!-- 配列そのものの更新はリアクティブ -->
-	    <button @click="compArr=[888]">compArr=[888]</button>
-	    <button @click="compArr.unshift(777)">compArr.unshift(777)</button>
+      </div>
+      <div>
+        <h4>Premitive Array Reactivity</h4>
+        <!-- 配列内部のプリミティブ値を直接更新した場合、リアクティブにならない -->
+        <button @click="compArr[0]++" class="danger">compArr[0]++</button>
+        <button @click="compArr[0]=999" class="danger">compArr[0]=999</button>
+        <!-- 配列そのものの更新はリアクティブ -->
+        <button @click="compArr=[888]">compArr=[888]</button>
+        <button @click="compArr.unshift(777)">compArr.unshift(777)</button>
         <comp v-for="a in compArr" :val="a"></comp>
-	  </div>
-	  <div>
-		<h4>Object Array Reactivity</h4>
-		<!-- 直接インデックス指定して更新した場合は、同様にリアクティブにならない -->
-	    <button @click="compObjArr[0]={name: 'Alice', age:5}" class="danger">compObjArr[0]={name: 'Alice', age:5}</button>
-		<!-- 配列内部のオブジェクトは、そのプロパティ変更についてリアクティブになる -->
-	    <button @click="compObjArr[0].age++">compObjArr[0].age++</button>
-	    <button @click="compObjArr[0].age=999">compObjArr[0].age=999</button>
-		<br>
-		<!-- 配列そのものの更新もリアクティブ -->
-	    <button @click="compObjArr=[{ name: 'Alice', age: 5 },{ name: 'Bob', age: 10 },{ name: 'Chris', age: 18 }]">compObjArr=[{ name: 'Alice', age: 5 },...]</button>
-	    <button @click="compObjArr.unshift({ name: 'Dave', age: 20 })">compObjArr.unshift({ name: 'Chris', age: 18 })</button>
+      </div>
+      <div>
+        <h4>Object Array Reactivity</h4>
+        <!-- 直接インデックス指定して更新した場合は、同様にリアクティブにならない -->
+        <button @click="compObjArr[0]={name: 'Alice', age:5}" class="danger">compObjArr[0]={name: 'Alice', age:5}</button>
+        <!-- 配列内部のオブジェクトは、そのプロパティ変更についてリアクティブになる -->
+        <button @click="compObjArr[0].age++">compObjArr[0].age++</button>
+        <button @click="compObjArr[0].age=999">compObjArr[0].age=999</button>
+        <br>
+        <!-- 配列そのものの更新もリアクティブ -->
+        <button @click="compObjArr=[{ name: 'Alice', age: 5 },{ name: 'Bob', age: 10 },{ name: 'Chris', age: 18 }]">compObjArr=[{ name: 'Alice', age: 5 },...]</button>
+        <button @click="compObjArr.unshift({ name: 'Dave', age: 20 })">compObjArr.unshift({ name: 'Chris', age: 18 })</button>
         <comp v-for="e in compObjArr" :val="e.name + ': ' + e.age"></comp>
-	  </div>
+      </div>
     </div>
   </body>
 </html>
