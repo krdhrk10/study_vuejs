@@ -16,7 +16,7 @@ vueの単一ファイルコンポネントとは、1つのファイルに1つの
 ```shell
 $ docker build -t vue-devel
 $ docker run -ti -v `pwd`:/root/app vue-devel npm run build
-``
+```
 
 ## Note
 
